@@ -5,3 +5,5 @@
 ### my-action status
 [![my-action](https://github.com/wasiliyterkin46/java-project-72/actions/workflows/my-workflow.yml/badge.svg)](https://github.com/wasiliyterkin46/java-project-72/actions/workflows/my-workflow.yml)
 
+- [Ссылка на сервис в Render](https://java-project-72-xna0.onrender.com)
+
