@@ -1,2 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/wasiliyterkin46/java-project-72/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/wasiliyterkin46/java-project-72/actions)
+### sonarqube status
+
+### my-action status
+[![my-action](https://github.com/wasiliyterkin46/java-project-72/actions/workflows/my-workflow.yml/badge.svg)](https://github.com/wasiliyterkin46/java-project-72/actions/workflows/my-workflow.yml)
+

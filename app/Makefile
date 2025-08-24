@@ -2,36 +2,36 @@
 .DEFAULT_GOAL := build-run
 
 run-dist: #  Запуск исполняемого файла
-	make -C ./app run-dist
+	./build/install/app/bin/app 'src/test/resources/file1.json' 'src/test/resources/file2.json'
 
 setup:
-	make -C ./app setup
+	./gradlew wrapper --gradle-version 8.5
 
 clean:
-	make -C ./app clean
+	./gradlew clean
 
 build:
-	make -C ./app build
+	./gradlew clean build
 
 install:
-	make -C ./app install
+	./gradlew clean install
 
 run:
-	make -C ./app run
+	./gradlew run
 
 test:
-	make -C ./app test
+	./gradlew test
 
 report:
-	make -C ./app report
+	./gradlew jacocoTestReport
 
 lint:
-	make -C ./app lint
+	./gradlew checkstyleMain checkstyleTest
 
 check-deps:
-	make -C ./app check-deps
+	./gradlew dependencyUpdates -Drevision=release
 
 
-build-run: make -C ./app build run
+build-run: build run
 
 .PHONY: build
