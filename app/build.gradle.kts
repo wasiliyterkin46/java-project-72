@@ -33,6 +33,7 @@ dependencies {
 
     implementation("com.zaxxer:HikariCP:7.0.2")
     implementation("com.h2database:h2:2.3.232")
+    implementation("org.postgresql:postgresql:42.7.7")
 
     testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
