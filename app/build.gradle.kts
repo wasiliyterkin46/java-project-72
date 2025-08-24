@@ -7,9 +7,9 @@ plugins {
     checkstyle
     jacoco
     id("org.sonarqube") version "6.2.0.5505"
-    id("io.freefair.lombok") version "8.13.1"
+    id("io.freefair.lombok") version "8.14.2"
     id("com.github.ben-manes.versions") version "0.52.0"
-    id("se.patrikerdes.use-latest-versions") version "0.2.18"
+    id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
     id("com.gradleup.shadow") version "9.0.2"
 }
@@ -31,10 +31,13 @@ dependencies {
     implementation("gg.jte:jte:3.2.1")
     implementation("org.slf4j:slf4j-simple:2.0.17")
 
-    testImplementation(platform("org.junit:junit-bom:5.12.2"))
+    implementation("com.zaxxer:HikariCP:7.0.2")
+    implementation("com.h2database:h2:2.3.232")
+
+    testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.12.2")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.12.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor("org.projectlombok:lombok:1.18.38")
@@ -61,7 +64,7 @@ tasks.test {
 
 sonar {
     properties {
-        property("sonar.projectKey", "wasiliyterkin46_java-project-78")
+        property("sonar.projectKey", "wasiliyterkin46_java-project-72")
         property("sonar.organization", "wasiliyterkin46")
         property("sonar.host.url", "https://sonarcloud.io")
     }
