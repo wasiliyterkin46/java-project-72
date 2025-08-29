@@ -1,5 +1,19 @@
+@import hexlet.code.dto.BuildUrlPage
+@import hexlet.code.util.NamedRoutes
+
+@param BuildUrlPage page = null
+
 @template.layout.page(
+    page = page,
     content = @`
-        Hello World
+        <form action="${NamedRoutes.urlsPath()}" method="post">
+            <div>
+                <label>
+                    URL
+                    <input type="text" name="url" value="${page.getTextUrl()}" />
+                </label>
+            </div>
+            <input type="submit" value="Проверить" />
+        </form>
     `
 )

@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.controller.UrlsController;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
 import gg.jte.ContentType;
@@ -36,7 +37,9 @@ public class App {
 
     private static Javalin addHandlers(Javalin app) {
         app.get(NamedRoutes.mainPath(), MainController::index);
-
+        app.get(NamedRoutes.urlsPath(), UrlsController::index);
+        app.post(NamedRoutes.urlsPath(), UrlsController::create);
+        app.get(NamedRoutes.urlPath("{id}"), UrlsController::show);
         return app;
     }
 
