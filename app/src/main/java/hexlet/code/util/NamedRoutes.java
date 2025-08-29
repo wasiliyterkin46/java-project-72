@@ -10,7 +10,7 @@ public class NamedRoutes {
     }
 
     public static String urlPath(String idString) {
-        return "/urls/" +idString;
+        return "/urls/" + idString;
     }
 
     public static String urlPath(Long idLong) {

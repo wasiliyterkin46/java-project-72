@@ -1,6 +1,5 @@
 package hexlet.code.model;
 
-import java.security.PublicKey;
 import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
