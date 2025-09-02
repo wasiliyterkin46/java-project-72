@@ -28,6 +28,7 @@ repositories {
 dependencies {
     implementation("io.javalin:javalin:6.7.0")
     implementation("io.javalin:javalin-rendering:6.7.0")
+    implementation("io.javalin:javalin-bundle:6.7.0")
     implementation("gg.jte:jte:3.2.1")
     implementation("org.slf4j:slf4j-simple:2.0.17")
 
@@ -38,6 +39,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testImplementation("org.mockito:mockito-core:5.19.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     compileOnly("org.projectlombok:lombok:1.18.38")
@@ -57,8 +59,6 @@ tasks.test {
     testLogging {
         exceptionFormat = TestExceptionFormat.FULL
         events = mutableSetOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
-        // showStackTraces = true
-        // showCauses = true
         showStandardStreams = true
     }
 }

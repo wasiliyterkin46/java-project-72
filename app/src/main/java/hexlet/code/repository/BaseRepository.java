@@ -1,15 +1,15 @@
 package hexlet.code.repository;
 
-import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
 
 public class BaseRepository {
-    protected static HikariDataSource dataSource;
+    protected static DataSource dataSource;
 
-    public static HikariDataSource getDataSource() {
+    public static DataSource getDataSource() {
         return dataSource;
     }
 
-    public static void setDataSource(HikariDataSource installedDataSource) {
+    public static void setDataSource(DataSource installedDataSource) {
         dataSource = installedDataSource;
     }
 }
