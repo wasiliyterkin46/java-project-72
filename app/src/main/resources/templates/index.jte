@@ -10,7 +10,7 @@
             <div>
                 <label>
                     URL
-                    <input type="text" name="url" value="${page.getTextUrl()}" />
+                    <input type="text" name="url" value="${page.getTextUrl()}" placeholder="Ссылка" />
                 </label>
             </div>
             <input type="submit" value="Проверить" />

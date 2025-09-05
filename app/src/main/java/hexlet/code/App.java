@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.controller.UrlChecksController;
 import hexlet.code.controller.UrlsController;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
@@ -40,6 +41,8 @@ public class App {
         app.get(NamedRoutes.urlsPath(), UrlsController::index);
         app.post(NamedRoutes.urlsPath(), UrlsController::create);
         app.get(NamedRoutes.urlPath("{id}"), UrlsController::show);
+        app.post(NamedRoutes.urlCheckPath("{id}"), UrlChecksController::create);
+
         return app;
     }
 
