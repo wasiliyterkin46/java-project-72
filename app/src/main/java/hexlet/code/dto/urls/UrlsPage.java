@@ -14,7 +14,7 @@ import lombok.Getter;
 public final class UrlsPage extends BasePage {
     private List<UrlInfo> urls;
 
-    public final static class UrlInfo extends Url {
+    public static final class UrlInfo extends Url {
         private Timestamp lastCheck;
         private Integer lastStatusCode;
 
