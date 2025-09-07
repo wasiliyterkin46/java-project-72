@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.controller.UrlChecksController;
 import hexlet.code.controller.UrlsController;
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlRepository;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static org.mockito.Mockito.mock;
@@ -53,7 +55,9 @@ public class AppTest {
 
     @AfterAll
     public static final void afterAll() throws IOException {
-        mockServer.shutdown();
+        if (mockServer != null) {
+            mockServer.close();
+        }
     }
 
     @Test
@@ -99,8 +103,10 @@ public class AppTest {
 
         JavalinTest.test(app, (server, client) -> {
             var response = client.get(NamedRoutes.urlsPath());
+            var responseBody = response.body().string();
             assertEquals(200, response.code());
-            assertTrue(response.body().string().contains("https://github.com"));
+            assertTrue(responseBody.contains("https://github.com"));
+            assertFalse(responseBody.contains("/hexlet-components/java-javalin-example"));
         });
     }
 
@@ -131,8 +137,12 @@ public class AppTest {
         mockServer.enqueue(new MockResponse()
                 .setBody(getContentFile("src/test/resources/url1.html"))
                 .setResponseCode(777));
+        mockServer.enqueue(new MockResponse()
+                .setBody("")
+                .setResponseCode(404));
 
         mockServer.start();
+
         HttpUrl baseUrl = mockServer.url("");
 
         when(ctx.formParam("url")).thenReturn(baseUrl.toString());
@@ -155,6 +165,30 @@ public class AppTest {
             for (String checkValue : checkValues2) {
                 assertTrue(responseBody2.contains(checkValue));
             }
+        });
+    }
+
+    @Test
+    public void urlWithChecksBadServerTest() throws SQLException, IOException {
+        mockServer = new MockWebServer();
+        mockServer.start();
+
+        HttpUrl baseUrl = mockServer.url("");
+
+        when(ctx.formParam("url")).thenReturn(baseUrl.toString());
+        UrlsController.create(ctx);
+        Long idUrl = 1L;
+        mockServer.shutdown();
+
+        when(ctx.pathParam("id")).thenReturn(String.valueOf(idUrl));
+        UrlChecksController.create(ctx);
+
+        verify(ctx).sessionAttribute("textFlash", "Некорректный адрес");
+        verify(ctx).redirect(NamedRoutes.urlPath(idUrl));
+
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.post(NamedRoutes.urlCheckPath(idUrl));
+            assertEquals(200, response.code());
         });
     }
 

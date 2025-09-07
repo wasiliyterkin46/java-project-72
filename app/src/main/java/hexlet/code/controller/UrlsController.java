@@ -8,7 +8,6 @@ import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.NamedRoutes;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
-
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -56,7 +55,7 @@ public class UrlsController {
 
     public static void show(Context ctx) throws SQLException {
         var id = ctx.pathParam("id");
-        var url = UrlRepository.findId(id) // Ищем пользователя в базе по id
+        var url = UrlRepository.findId(id)
                 .orElseThrow(() -> new NotFoundResponse("Url with id = " + id + " not found"));
         var urlCheck = UrlCheckRepository.selectEntity(url.getId());
         var page = new UrlPage(url, urlCheck);
