@@ -1,5 +1,6 @@
 package hexlet.code.repository;
 
+import hexlet.code.dto.urls.UrlsPage;
 import hexlet.code.model.Url;
 
 import java.sql.SQLException;
@@ -66,6 +67,34 @@ public class UrlRepository extends BaseRepository {
                 Timestamp createdAt = resultSet.getTimestamp("created_at");
                 Url url = new Url(id, name, createdAt);
                 result.add(url);
+            }
+            return result;
+        }
+    }
+
+    public static List<UrlsPage.UrlInfo> getEntityInfo() throws SQLException {
+        String sql = "SELECT urls.id, urls.name, urls.created_at, checks.status_code, "
+                + "checks.created_at AS created_check \n"
+                + "FROM urls LEFT JOIN (SELECT url_id, status_code, created_at \n"
+                + "FROM url_checks \n"
+                + "WHERE id IN (SELECT MAX(id) AS id \n"
+                + "FROM url_checks \n"
+                + "GROUP BY url_id)) AS checks ON urls.id = checks.url_id";
+
+
+        try (var conn = dataSource.getConnection();
+             var stmt = conn.prepareStatement(sql)) {
+            var resultSet = stmt.executeQuery();
+            var result = new ArrayList<UrlsPage.UrlInfo>();
+            while (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                Timestamp createdAt = resultSet.getTimestamp("created_at");
+                Integer lastStatusCode = resultSet.getInt("status_code");
+                Timestamp lastCheck = resultSet.getTimestamp("created_check");
+
+                UrlsPage.UrlInfo urlCheck = new UrlsPage.UrlInfo(id, name, createdAt, lastCheck, lastStatusCode);
+                result.add(urlCheck);
             }
             return result;
         }

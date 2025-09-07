@@ -47,7 +47,7 @@ public class UrlsController {
     }
 
     public static void index(Context ctx) throws SQLException {
-        List<Url> urls = UrlRepository.getEntity();
+        List<UrlsPage.UrlInfo> urls = UrlRepository.getEntityInfo();
         UrlsPage page = new UrlsPage(urls);
         page.setTextFlash(ctx.consumeSessionAttribute("textFlash"));
         page.setTypeFlash(ctx.consumeSessionAttribute("typeFlash"));
@@ -60,6 +60,8 @@ public class UrlsController {
                 .orElseThrow(() -> new NotFoundResponse("Url with id = " + id + " not found"));
         var urlCheck = UrlCheckRepository.selectEntity(url.getId());
         var page = new UrlPage(url, urlCheck);
+        page.setTextFlash(ctx.consumeSessionAttribute("textFlash"));
+        page.setTypeFlash(ctx.consumeSessionAttribute("typeFlash"));
 
         ctx.render("urls/show.jte", model("page", page));
     }

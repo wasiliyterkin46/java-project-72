@@ -24,6 +24,8 @@ public class UrlChecksController {
         String idUrl = ctx.pathParam("id");
         UrlCheck checkedUrl = checkUrl(idUrl);
         UrlCheckRepository.save(checkedUrl);
+        ctx.sessionAttribute("textFlash", "Страница успешно проверена");
+        ctx.sessionAttribute("typeFlash", "alert-success");
         ctx.redirect(NamedRoutes.urlPath(idUrl));
     }
 

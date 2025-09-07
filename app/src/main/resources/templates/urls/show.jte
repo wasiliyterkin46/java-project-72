@@ -6,10 +6,11 @@
 @template.layout.page(
     page = page,
     content = @`
-        <div>
-            <h1>Сайт: ${page.getUrl().getName()}</h1>
-            <div>
-                <table>
+    <main class="flex-grow-1">
+        <section>
+            <div class="container-lg mt-5">
+                <h1>Сайт: ${page.getUrl().getName()}</h1>
+                <table class="table table-bordered table-hover mt-3">
                     <tbody>
                         <tr>
                             <td>ID</td>
@@ -25,18 +26,14 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
 
-            <h1>Проверки</h1>
-            <div>
+                <h2 class="mt-5">Проверки</h2>
                 <form action="${NamedRoutes.urlCheckPath(page.getUrl().getId())}" method="post">
                     <input type="submit" value="Запустить проверку" />
                 </form>
-            </div>
 
-            @if(page.containsChecks())
-                <div>
-                    <table>
+                @if(page.containsChecks())
+                    <table class="table table-bordered table-hover mt-3">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -60,8 +57,9 @@
                             @endfor
                         </tbody>
                     </table>
-                </div>
-            @endif
-        </div>
+                @endif
+            </div>
+        </section>
+    </main>
     `
 )
