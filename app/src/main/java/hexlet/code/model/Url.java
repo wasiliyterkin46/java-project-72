@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Url {
+public final class Url {
     Long id;
     String name;
     Timestamp createdAt;

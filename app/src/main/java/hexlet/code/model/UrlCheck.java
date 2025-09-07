@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import lombok.Getter;
 
 @Getter
-public class UrlCheck {
+public final class UrlCheck {
     Long id;
     Integer statusCode;
     String title;

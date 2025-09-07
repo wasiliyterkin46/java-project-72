@@ -11,10 +11,10 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class UrlsPage extends BasePage {
+public final class UrlsPage extends BasePage {
     private List<UrlInfo> urls;
 
-    public static class UrlInfo extends Url {
+    public final static class UrlInfo extends Url {
         private Timestamp lastCheck;
         private Integer lastStatusCode;
 
