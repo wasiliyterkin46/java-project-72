@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public final class Url {
+public class Url {
     Long id;
     String name;
     Timestamp createdAt;
@@ -25,7 +25,7 @@ public final class Url {
         this.id = id;
     }
 
-    public String getCreatedAtAsString() {
+    public final String getCreatedAtAsString() {
         return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(createdAt);
     }
 }
