@@ -19,12 +19,12 @@ import java.sql.SQLException;
 @Slf4j
 public class App {
     public static void main(String[] args) throws IOException, SQLException {
-        ConfigRepository.configureRepository();
         var app = getApp();
         app.start(ConfigRepository.getPort());
     }
 
     public static Javalin getApp() {
+        ConfigRepository.configureRepository();
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
             config.fileRenderer(new JavalinJte(createTemplateEngine()));

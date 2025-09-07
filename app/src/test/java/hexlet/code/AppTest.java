@@ -4,7 +4,6 @@ import hexlet.code.controller.UrlChecksController;
 import hexlet.code.controller.UrlsController;
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlRepository;
-import hexlet.code.util.ConfigRepository;
 import hexlet.code.util.NamedRoutes;
 
 import io.javalin.Javalin;
@@ -14,7 +13,6 @@ import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +23,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
-import javax.sql.DataSource;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,19 +34,11 @@ import java.time.LocalDateTime;
 
 public class AppTest {
     private static Javalin app;
-    private static DataSource dataSource;
     private final Context ctx = mock(Context.class);
     private static MockWebServer mockServer;
 
-
-    @BeforeAll
-    public static final void configureApp() {
-        dataSource = ConfigRepository.configureRepository("jdbc:h2:mem:hexlet_project;DB_CLOSE_DELAY=-1;");
-    }
-
     @BeforeEach
-    public final void updateSchemaDataBase() {
-        ConfigRepository.createSchemaDataBase(dataSource);
+    public final void updateApp() {
         app = App.getApp();
     }
 
