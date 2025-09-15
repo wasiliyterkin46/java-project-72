@@ -5,11 +5,10 @@ import javax.sql.DataSource;
 public class BaseRepository {
     protected static DataSource dataSource;
 
-    public static DataSource getDataSource() {
-        return dataSource;
+    public BaseRepository(DataSource dataSrc) {
+        dataSource = dataSrc;
     }
 
-    public static void setDataSource(DataSource installedDataSource) {
-        dataSource = installedDataSource;
+    protected BaseRepository() {
     }
 }
