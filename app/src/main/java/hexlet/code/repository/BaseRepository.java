@@ -3,15 +3,13 @@ package hexlet.code.repository;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import hexlet.code.App;
-
-import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class BaseRepository {
-    protected static final DataSource DATA_SOURCE;
+    protected static final HikariDataSource DATA_SOURCE;
 
     static {
         DATA_SOURCE = getDataSource();
@@ -20,11 +18,11 @@ public class BaseRepository {
 
     protected BaseRepository() { }
 
-    private static DataSource getDataSource() {
+    private static HikariDataSource getDataSource() {
         String dataBaseUrl = getDatabaseUrl();
         var hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(dataBaseUrl);
-        DataSource dataSource = new HikariDataSource(hikariConfig);
+        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
         return dataSource;
     }
 
