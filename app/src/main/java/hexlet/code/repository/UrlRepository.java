@@ -13,7 +13,7 @@ import java.util.Optional;
 public class UrlRepository extends BaseRepository {
     public static void save(Url url) throws SQLException {
         String sql = "INSERT INTO urls (name, created_at) VALUES (?, ?)";
-        try (var conn = dataSource.getConnection();
+        try (var conn = DATA_SOURCE.getConnection();
              var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, url.getName());
             preparedStatement.setTimestamp(2, url.getCreatedAt());
@@ -35,7 +35,7 @@ public class UrlRepository extends BaseRepository {
 
     public static Optional<Url> findId(Long id) throws SQLException {
         var sql = "SELECT * FROM urls WHERE id = ?";
-        try (var conn = dataSource.getConnection();
+        try (var conn = DATA_SOURCE.getConnection();
              var stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, id);
             var resultSet = stmt.executeQuery();
@@ -57,7 +57,7 @@ public class UrlRepository extends BaseRepository {
 
     public static List<Url> getEntity() throws SQLException {
         String sql = "SELECT * FROM urls";
-        try (var conn = dataSource.getConnection();
+        try (var conn = DATA_SOURCE.getConnection();
              var stmt = conn.prepareStatement(sql)) {
             var resultSet = stmt.executeQuery();
             var result = new ArrayList<Url>();
@@ -82,7 +82,7 @@ public class UrlRepository extends BaseRepository {
                 + "GROUP BY url_id)) AS checks ON urls.id = checks.url_id";
 
 
-        try (var conn = dataSource.getConnection();
+        try (var conn = DATA_SOURCE.getConnection();
              var stmt = conn.prepareStatement(sql)) {
             var resultSet = stmt.executeQuery();
             var result = new ArrayList<UrlsPage.UrlInfo>();
@@ -106,7 +106,7 @@ public class UrlRepository extends BaseRepository {
 
     private static List<Url> search(String term) throws SQLException {
         var sql = "SELECT * FROM urls WHERE name LIKE ?";
-        try (var conn = dataSource.getConnection();
+        try (var conn = DATA_SOURCE.getConnection();
              var stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, term);
             var resultSet = stmt.executeQuery();

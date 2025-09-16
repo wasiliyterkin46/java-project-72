@@ -12,7 +12,7 @@ public class UrlCheckRepository extends BaseRepository {
     public static void save(UrlCheck urlCheck) throws SQLException {
         String sql = "INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at) "
                 + " VALUES (?, ?, ?, ?, ?, ?)";
-        try (var conn = dataSource.getConnection();
+        try (var conn = DATA_SOURCE.getConnection();
              var stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setLong(1, urlCheck.getUrlId());
             stmt.setInt(2, urlCheck.getStatusCode());
@@ -33,7 +33,7 @@ public class UrlCheckRepository extends BaseRepository {
 
     public static List<UrlCheck> selectEntity(Long idUrl) throws SQLException {
         String sql = "SELECT * FROM url_checks WHERE url_id = ?";
-        try (var conn = dataSource.getConnection();
+        try (var conn = DATA_SOURCE.getConnection();
              var stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, idUrl);
             var resultSet = stmt.executeQuery();

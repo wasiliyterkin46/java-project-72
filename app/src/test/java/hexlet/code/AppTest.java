@@ -3,6 +3,7 @@ package hexlet.code;
 import hexlet.code.controller.UrlChecksController;
 import hexlet.code.controller.UrlsController;
 import hexlet.code.model.Url;
+import hexlet.code.repository.BaseRepository;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.NamedRoutes;
 
@@ -15,6 +16,7 @@ import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -34,16 +36,19 @@ import java.time.LocalDateTime;
 
 public class AppTest {
     private static Javalin app;
-    private final Context ctx = mock(Context.class);
+    private static Context ctx;
     private static MockWebServer mockServer;
 
     @BeforeEach
     public final void updateApp() {
         app = App.getApp();
+        ctx = mock(Context.class);
+        BaseRepository.createSchemaDataBase();
     }
 
     @AfterAll
-    public static final void afterAll() throws IOException {
+    public static void afterAll() throws IOException {
+        app.stop();
         if (mockServer != null) {
             mockServer.close();
         }
@@ -168,7 +173,6 @@ public class AppTest {
         UrlsController.create(ctx);
         Long idUrl = 1L;
         mockServer.shutdown();
-
         when(ctx.pathParam("id")).thenReturn(String.valueOf(idUrl));
         UrlChecksController.create(ctx);
 
