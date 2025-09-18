@@ -1,7 +1,5 @@
 package hexlet.code;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import hexlet.code.controller.UrlChecksController;
 import hexlet.code.controller.UrlsController;
 import hexlet.code.model.Url;
@@ -15,7 +13,6 @@ import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,58 +24,24 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.stream.Collectors;
 
 public class AppTest {
     private static Javalin app;
     private static Context ctx;
     private static MockWebServer mockServer;
-    private static HikariDataSource dataSource;
-    private static String sqlSchema;
-
-    @BeforeAll
-    public static void beforeAll() {
-        setDataSource();
-        setSqlSchema();
-    }
-
-    private static void setDataSource() {
-        String dataBaseUrl = "jdbc:h2:mem:hexlet_project;DB_CLOSE_DELAY=-1;";
-        var hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(dataBaseUrl);
-        dataSource = new HikariDataSource(hikariConfig);
-    }
-
-    private static void setSqlSchema() {
-        var url = App.class.getClassLoader().getResourceAsStream("schema.sql");
-        sqlSchema =  new BufferedReader(new InputStreamReader(url))
-                .lines().collect(Collectors.joining("\n"));
-    }
 
     @BeforeEach
     public final void updateApp() {
         app = App.getApp();
         ctx = mock(Context.class);
-        createSchemaDataBase();
-    }
-
-    private static void createSchemaDataBase() {
-        try (var connection = dataSource.getConnection();
-             var statement = connection.createStatement()) {
-            statement.execute(sqlSchema);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @AfterAll

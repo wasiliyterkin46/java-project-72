@@ -30,7 +30,7 @@ public class BaseRepository {
         return System.getenv().getOrDefault("JDBC_DATABASE_URL", "jdbc:h2:mem:hexlet_project;DB_CLOSE_DELAY=-1;");
     }
 
-    private static void createSchemaDataBase() {
+    public static void createSchemaDataBase() {
         var sql = getSqlShemaDataBase();
 
         try (var connection = DATA_SOURCE.getConnection();

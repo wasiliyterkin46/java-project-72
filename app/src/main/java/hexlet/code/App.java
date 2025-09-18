@@ -2,6 +2,7 @@ package hexlet.code;
 
 import hexlet.code.controller.UrlChecksController;
 import hexlet.code.controller.UrlsController;
+import hexlet.code.repository.BaseRepository;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
 import gg.jte.ContentType;
@@ -23,6 +24,7 @@ public class App {
     }
 
     public static Javalin getApp() {
+        BaseRepository.createSchemaDataBase();
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
             config.fileRenderer(new JavalinJte(createTemplateEngine()));
