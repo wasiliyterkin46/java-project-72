@@ -2,36 +2,37 @@
 .DEFAULT_GOAL := build-run
 
 run-dist: #  Запуск исполняемого файла
-	make -C ./app run-dist
+	make -C app run-dist
 
 setup:
-	make -C ./app setup
+	make -C app setup
 
 clean:
-	make -C ./app clean
+	make -C app clean
 
 build:
-	make -C ./app build
+	make -C app build
 
 install:
-	make -C ./app install
+	make -C app install
 
 run:
-	make -C ./app run
+	make -C app run
 
 test:
-	make -C ./app test
+	make -C app test
 
 report:
-	make -C ./app report
+	make -C app report
 
 lint:
-	make -C ./app lint
+	make -C app lint
 
 check-deps:
-	make -C ./app check-deps
+	make -C app check-deps
 
 
-build-run: make -C ./app build run
+build-run: make -C app build run
 
 .PHONY: build
+
